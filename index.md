@@ -2,11 +2,26 @@
 layout: default
 ---
 
-
-<h1 class="text-center">licensekit</h1>
-
 <div class="container align-items-center justify-content-center">
-    <form id="form">
+
+    <h1 class="text-center">licensekit</h1>
+    
+    <div class="text-center">
+        <a class="btn btn-secondary" role="button"
+            href="https://createdelic.itch.io/licensekit">
+          createdelic.itch.io/licensekit
+        </a>
+        <a class="btn btn-secondary" role="button"
+            href="mailto:contact@createdelic.com">
+          contact@createdelic.com
+        </a>
+    </div>
+    
+    <p class="text-center mt-2">
+    License data last updated on {{ site.time | date: "%Y-%m-%d %H:%M:%S" }}
+    </p>
+
+    <form id="form" class="mt-2">
         {% capture w %}{{site.defaultvalues.width}}{% endcapture %}
         {% include form_row.html name='Width' id='w' value=w units="px" %}
 
@@ -34,11 +49,16 @@ layout: default
 <div id="results-area" class="m-1">
     <hr>
     <h2 class="text-center">Generated Images</h2>
+<h5 class="text-center">
+Resolution: <span id="res-w">1</span>x<span id="res-h">2</span>
+</h5>
     <p class="text-center">(Please right-click and "Save As" on each image)</p>
     <div id="results-images"></div>
 </div>
 
-<div id="dev-area">
+<div id="dev-area" class="mt-5">
+
+    <h2 class="text-center">Canvas (ignore this area)</h2>
 
 <div id="capture" class="licenses">
 
@@ -116,16 +136,16 @@ function mainFunction(setuponly) {
 
   if (setuponly) {
     $("#results-area").hide();
-    $("#dev-area").hide();
     return false;
   }
   
   $("#results-area").show();
   $("#results-images").empty();
 
-  $("#dev-area").show();
-
   var scale = $("#scale").val();
+
+  $("#res-w").text((w*scale) + '');
+  $("#res-h").text((h*scale) + '');
 
   for (var i = 0; i < pages; i++) {
     var canvas = document.createElement('canvas');
@@ -147,8 +167,6 @@ function mainFunction(setuponly) {
         $("#results-images").append(canvas);
     });
   }
-
-  $("#dev-area").hide();
 }
 
 $("form").submit(function(){
@@ -161,5 +179,3 @@ $(document).ready(function() {
   mainFunction(true);
 });
 </script>
-
-<script type="text/javascript" src="static/script.js"></script>
