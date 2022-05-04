@@ -17,17 +17,22 @@ Made with [html2canvas](https://github.com/niklasvh/html2canvas/) and jQuery.
 
 1. Download or [git clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) the repository to your computer.
 2. Open a terminal and `cd` to the directory where the code is.
-3. Generate the website using Jekyll. The most foolproof way to do this would be to install [Docker](https://www.docker.com/), then run the command below:
-    - On OS X: 
-    
-      ```docker run --rm --label=jekyll --volume=`pwd`:/srv/jekyll -it jekyll/jekyll jekyll b```
-    - On Windows:
-    
-      ```docker run --rm --label=jekyll --volume=%CD%:/srv/jekyll -it jekyll/jekyll jekyll b```
-      
-    (If you'd prefer not to use Docker, you can install Jekyll as per the [official instructions](https://jekyllrb.com/docs/) and then just run `jekyll b`)
+3. Generate the website using Jekyll.
+   - The most foolproof way to do this would be to install [Docker](https://www.docker.com/), then run the command below in the main directory of this repository:
+        - On OS X:
+         ```docker run --rm --label=jekyll --volume=`pwd`:/srv/jekyll -it jekyll/jekyll jekyll b```
+
+       - On Windows:
+       ```docker run --rm --label=jekyll --volume=%CD%:/srv/jekyll -it jekyll/jekyll jekyll b```
+   - Alternatively, if you are on OS X or Linux, you can use bundler by running these commands from the main directory of the repository:
+    ```
+   bundle config set --local path 'vendor/bundle'
+   bundle install
+   bundler exec jekyll b
+   ```
+   - Or you can install Jekyll as per the [official instructions](https://jekyllrb.com/docs/) and then just run `jekyll b`)
 4. A `_site` directory should have been created. Open `_site/index.html` in your web browser.
-5. Press the "Create Images" button on the page. Images should appear at the bottom of the page with example data. These are the images you can save from your browser and then use in your game.
+5. Press the "Create images" button on the page. Images should appear at the bottom of the page with example data. These are the images you can save from your browser and then use in your game.
 
 Now that you've gotten everything running with example data, the next step is to put in the actual data you want.
 1. Add each license as a `.txt` file in the `_includes/licenses` directory. You can delete the example ones in there.

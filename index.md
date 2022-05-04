@@ -2,33 +2,44 @@
 layout: default
 ---
 
-<div class="center-box">
-  <form id="form" class="licenses-form">
-    <div class="form-container">
-      {% capture w %}{{site.defaultvalues.width}}{% endcapture %}
-      {% include form_row.html name='Width' id='w' value=w %}
-      
-      {% capture h %}{{site.defaultvalues.height}}{% endcapture %}
-      {% include form_row.html name='Height' id='h' value=h %}
-      
-      {% capture margin %}{{site.defaultvalues.margin}}{% endcapture %}
-      {% include form_row.html name='Margin' id='margin' value=margin units="px" %}
-      
-      {% capture pages %}{{site.defaultvalues.pages}}{% endcapture %}
-      {% include form_row.html name='Pages' id='pages' value=pages %}
-      
-      {% capture columns %}{{site.defaultvalues.columns}}{% endcapture %}
-      {% include form_row.html name='Columns Per Page' id='columns' value=columns %}
-      
-      {% capture scale %}{{site.defaultvalues.scale}}{% endcapture %}
-      {% include form_row.html name='Scale' id='scale' value=scale %}
-    </div>
-    
-    <input class="submit-button" type="submit" value="Create images">
-  </form>
+
+<h1 class="text-center">licensekit</h1>
+
+<div class="container align-items-center justify-content-center">
+    <form id="form">
+        {% capture w %}{{site.defaultvalues.width}}{% endcapture %}
+        {% include form_row.html name='Width' id='w' value=w units="px" %}
+
+        {% capture h %}{{site.defaultvalues.height}}{% endcapture %}
+        {% include form_row.html name='Height' id='h' value=h units="px" %}
+        
+        {% capture margin %}{{site.defaultvalues.margin}}{% endcapture %}
+        {% include form_row.html name='Margin' id='margin' value=margin units="px" %}
+        
+        {% capture pages %}{{site.defaultvalues.pages}}{% endcapture %}
+        {% include form_row.html name='Pages' id='pages' value=pages %}
+        
+        {% capture columns %}{{site.defaultvalues.columns}}{% endcapture %}
+        {% include form_row.html name='Columns' id='columns' value=columns %}
+        
+        {% capture scale %}{{site.defaultvalues.scale}}{% endcapture %}
+        {% include form_row.html name='Scale' id='scale' value=scale %}
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-block">Create images</button>
+        </div>
+    </form>
 </div>
 
-<h2>Preview:</h2>
+<div id="results-area" class="m-1">
+    <hr>
+    <h2 class="text-center">Generated Images</h2>
+    <p class="text-center">(Please right-click and "Save As" on each image)</p>
+    <div id="results-images"></div>
+</div>
+
+<div id="dev-area">
+
 <div id="capture" class="licenses">
 
 {% for license in site.data.licenses %}
@@ -82,15 +93,12 @@ Below is a list of attributions for sounds which were used or referenced in the 
 {% endif %}
 
 </div>
-
-<h2 id="results-title">Results: (right click > Save As on each)</h2>
-<div id="results">
 </div>
 
 <script
-        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-        crossorigin="anonymous"></script>
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://unpkg.com/html2canvas@1.0.0-rc.5/dist/html2canvas.js"></script>
 <script>
 function mainFunction(setuponly) {
@@ -107,13 +115,15 @@ function mainFunction(setuponly) {
   $("#capture").css("column-count", pages*columns);
 
   if (setuponly) {
-    $("#results-title").hide();
+    $("#results-area").hide();
+    $("#dev-area").hide();
     return false;
   }
   
-  $("#results-title").show();
+  $("#results-area").show();
+  $("#results-images").empty();
 
-  $("#results").empty();
+  $("#dev-area").show();
 
   var scale = $("#scale").val();
 
@@ -134,15 +144,15 @@ function mainFunction(setuponly) {
     };
 
     html2canvas(document.querySelector("#capture"), params).then(canvas => {
-        $("#results").append(canvas);
+        $("#results-images").append(canvas);
     });
   }
+
+  $("#dev-area").hide();
 }
 
 $("form").submit(function(){
   mainFunction(false);
-  
-  alert("Success! Check the bottom of the page.");
 
   return false;
 });
@@ -151,3 +161,5 @@ $(document).ready(function() {
   mainFunction(true);
 });
 </script>
+
+<script type="text/javascript" src="static/script.js"></script>
