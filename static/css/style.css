@@ -26,7 +26,8 @@ body {
 
 .licenses pre {
   font-family: 'Roboto Mono', monospace;
-  font-size: 8px;
+  font-size: 7px;
+  overflow: visible;
 }
 
 .licenses hr {
