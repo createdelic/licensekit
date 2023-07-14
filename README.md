@@ -4,8 +4,6 @@ licensekit generates images containing license attributions for use in video gam
 
 If your game uses libraries, fonts, audio, or other resources that require you to distribute their licenses with your game, you can use this tool to generate images to be shown from the title screen or some other place in your game. The idea is that showing these pre-generated images is simpler to implement in your game than displaying, formatting, and paginating a giant wall of text.
 
-If you have questions either open an issue or contact me on Twitter: [@_mrtenda](https://twitter.com/_mrtenda)
-
 Made with [html2canvas](https://github.com/niklasvh/html2canvas/) and jQuery.
 
 ### Example Output Images
